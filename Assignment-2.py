@@ -1,265 +1,172 @@
+"""
+UCS420: Cognitive Computing
+Assignment-2 (List, Tuples, Set and Dictionary)
+Student Name: Lakshay Kapur
+Roll Number: 1024170060
+"""
+
 import random
 
-from collections import Counter
+# ==============================================================================
+# 1. Create a List L that is defined as= [10, 20, 30, 40, 50, 60, 70, 80].
+#    i. WAP to add 200 and 300 to L.
+#    ii. WAP to remove 10 and 30 from L.
+#    iii. WAP to sort L in ascending order.
+#    iv. WAP to sort L in descending order.
+# ==============================================================================
 
-# Q1 - Lists
+L = [10, 20, 30, 40, 50, 60, 70, 80]
+print("Original List L:", L)
 
-roll_number = "1024170060"
+# i. Add 200 and 300 to L
+L.append(200)
+L.append(300)
+print("i. After adding 200 and 300:", L)
 
-L = [int(d) * 10 for d in roll_number]
+# ii. Remove 10 and 30 from L
+L.remove(10)
+L.remove(30)
+print("ii. After removing 10 and 30:", L)
 
-print("Original List:", L)
-
-L.append(55)
-
-print("After append:", L)  # Added at end
-
-L.insert(3, 99)
-
-print("After insert:", L)  # Added at index 3
-
-L.remove(55)
-
-print("After remove:", L)  # Removed value 55
-
-x = L.pop(3)
-
-print("After pop:", L)
-
-print("Popped element:", x)
-
+# iii. Sort L in ascending order
 L.sort()
+print("iii. Sorted in ascending order:", L)
 
-print("Ascending:", L)
-
+# iv. Sort L in descending order
 L.sort(reverse=True)
+print("iv. Sorted in descending order:", L)
 
-print("Descending:", L)
 
-print("First 3:", L[:3])
+# ==============================================================================
+# 2. Create a tuple of marks scored as scores = (45, 89.5, 76, 45.4, 89, 92, 58, 45)
+#    and perform the following operations using tuple functions:
+#    i. Identify the highest score and its index in the tuple.
+#    ii. Find the lowest score and count how many times it appears.
+#    iii. Reverse the tuple and return it as a list.
+#    iv. Check if a specific score '76' (input by the user) is present in the tuple
+#        and print its first occurrence index, or a message saying it's not present.
+# ==============================================================================
 
-print("Last 3:", L[-3:])
+scores = (45, 89.5, 76, 45.4, 89, 92, 58, 45)
+print("\nScores tuple:", scores)
 
-avg = sum(L) / len(L)
+# i. Identify highest score and index
+highest = max(scores)
+highest_idx = scores.index(highest)
+print(f"i. Highest score: {highest} at index: {highest_idx}")
 
-new_list = [i for i in L if i > avg]
+# ii. Find lowest score and count
+lowest = min(scores)
+lowest_count = scores.count(lowest)
+print(f"ii. Lowest score: {lowest} (appears {lowest_count} times)")
 
-print("Average:", avg)
+# iii. Reverse tuple and return as list
+reversed_scores_list = list(reversed(scores))
+print("iii. Reversed tuple as list:", reversed_scores_list)
 
-print("Greater than average:", new_list)
-
-# Q2 - Tuples
-
-scores = tuple(L[:8])
-
-print("\nTuple:", scores)
-
-print("Highest:", max(scores))
-
-print("Highest Index:", scores.index(max(scores)))
-
-print("Lowest:", min(scores))
-
-print("Lowest Count:", scores.count(min(scores)))
-
-# Tuples are immutable, so they cannot be changed.
-
-rev = list(reversed(scores))
-
-print("Reversed as list:", rev)
-
-value = int(input("Enter a score: "))
-
-if value in scores:
-
-    print("Index:", scores.index(value))
-
+# iv. Check if score '76' is present
+search_score = 76
+if search_score in scores:
+    print(f"iv. Score '{search_score}' is present at index: {scores.index(search_score)}")
 else:
+    print(f"iv. Score '{search_score}' is not present in the tuple.")
 
-    print("Not present")
 
-try:
-
-    scores[0] = 100
-
-except TypeError as e:
-
-    print("Error:", e)
-
-# Lists can be modified but tuples cannot.
-
-first, second, *remaining = scores
-
-print("First:", first)
-
-print("Second:", second)
-
-print("Remaining:", remaining)
-
-# Q3 - Random Numbers
+# ==============================================================================
+# 3. WAP to create a list of 100 random numbers between 100 and 900. Count and print:
+#    i. All odd numbers
+#    ii. All even numbers
+#    iii. All prime numbers
+# ==============================================================================
 
 random.seed(1024170060)
-
 nums = [random.randint(100, 900) for _ in range(100)]
-
-print("\nRandom List:")
-
+print("\nGenerated 100 random numbers between 100 and 900:")
 print(nums)
 
-odd = [i for i in nums if i % 2 != 0]
+# i. All odd numbers
+odd_nums = [n for n in nums if n % 2 != 0]
+print(f"\ni. Odd numbers count: {len(odd_nums)}")
+print("Odd numbers list:", odd_nums)
 
-even = [i for i in nums if i % 2 == 0]
+# ii. All even numbers
+even_nums = [n for n in nums if n % 2 == 0]
+print(f"\nii. Even numbers count: {len(even_nums)}")
+print("Even numbers list:", even_nums)
 
-print("Odd Count:", len(odd))
-
-print("Even Count:", len(even))
-
+# iii. All prime numbers
 def is_prime(n):
-
     if n < 2:
-
         return False
-
     for i in range(2, int(n**0.5) + 1):
-
         if n % i == 0:
-
             return False
-
     return True
 
-primes = [i for i in nums if is_prime(i)]
+prime_nums = [n for n in nums if is_prime(n)]
+print(f"\niii. Prime numbers count: {len(prime_nums)}")
+print("Prime numbers list:", prime_nums)
 
-print("Prime Count:", len(primes))
 
-print("Prime Numbers:", primes)
+# ==============================================================================
+# 4. Consider the following two sets, A and B, representing scores of two teams:
+#    A = {34, 56, 78, 90} and B = {78, 45, 90, 23}
+#    WAP to perform the following operations using set functions:
+#    i. Find the unique scores achieved by both teams (union of sets).
+#    ii. Identify the scores that are common to both teams (intersection of sets).
+#    iii. Find the scores that are exclusive to each team (symmetric difference).
+#    iv. Check if scores of team A are a subset of team B, and if team B is superset.
+#    v. Remove a specific score X (input by the user) from set A if it exists.
+# ==============================================================================
 
-count = Counter(nums)
+A = {34, 56, 78, 90}
+B = {78, 45, 90, 23}
+print("\nTeam A scores:", A)
+print("Team B scores:", B)
 
-most = count.most_common(1)[0]
+# i. Unique scores achieved by both teams (union)
+union_scores = A.union(B)
+print("\ni. Unique scores (Union):", union_scores)
 
-print("Most Frequent:", most[0])
+# ii. Scores common to both teams (intersection)
+common_scores = A.intersection(B)
+print("ii. Common scores (Intersection):", common_scores)
 
-print("Frequency:", most[1])
+# iii. Scores exclusive to each team (symmetric difference)
+exclusive_scores = A.symmetric_difference(B)
+print("iii. Exclusive scores (Symmetric Difference):", exclusive_scores)
 
-# Q4 - Sets
+# iv. Check subset and superset relations
+print(f"iv. Is Team A a subset of Team B? {A.issubset(B)}")
+print(f"    Are scores of Team B a superset of Team A? {B.issuperset(A)}")
 
-digits = [int(d) for d in roll_number]
-
-A = {d * 7 for d in digits}
-
-B = {d * 9 for d in digits}
-
-print("\nSet A:", A)
-
-print("Set B:", B)
-
-print("Union:", A.union(B))
-
-print("Intersection:", A.intersection(B))
-
-print("A-B:", A.difference(B))
-
-print("B-A:", B.difference(A))
-
-# Difference gives unique elements from one set only.
-
-# Symmetric difference gives unique elements from both sets.
-
-print("Symmetric Difference:", A.symmetric_difference(B))
-
-print("A subset of B:", A.issubset(B))
-
-print("B superset of A:", B.issuperset(A))
-
-x = int(input("Enter value to discard from A: "))
-
-A.discard(x)
-
-print("Updated A:", A)
-
-# discard() does not give an error if the element is absent.
-
-# Q5 - Dictionaries
-
-my_dict = {
-
-    "name": "Lakshay",
-
-    "roll_no": "1024170060",
-
-    "branch": "COPC",
-
-    "age": 20,
-
-    "city": "Faridabad"
-
-}
-
-my_dict["location"] = my_dict.pop("city")
-
-print("\nAfter renaming city:", my_dict)
-
-my_dict["cgpa"] = 9.60
-
-print("After adding cgpa:", my_dict)
-
-my_dict["age"] += 1
-
-print("After updating age:", my_dict)
-
-d1 = my_dict.copy()
-
-d2 = my_dict.copy()
-
-print("Pop:", d1.pop("branch"))
-
-print(d1)
-
-del d2["branch"]
-
-print("After del:", d2)
-
-# pop() returns the removed value, while del only deletes it.
-
-print("\nDictionary Items:")
-
-for key, value in my_dict.items():
-
-    print(key, "->", value)
-
-if "email" in my_dict:
-
-    print(my_dict["email"])
-
+# v. Remove specific score X from set A
+score_X = 34
+if score_X in A:
+    A.remove(score_X)
+    print(f"v. Score {score_X} removed from Set A. Updated Set A: {A}")
 else:
+    print(f"v. Score {score_X} is not present in Set A.")
 
-    print("Email key not found.")
 
-friend_dict = {
+# ==============================================================================
+# 5. Write a program to rename a key city to a location in the following dictionary:
+#    Given:
+#    sample_dict = {"name": "Kelly", "age": 25, "salary": 8000, "city": "New york"}
+#    Expected output:
+#    {'name': 'Kelly', 'age': 25, 'salary': 8000, 'location': 'New york'}
+# ==============================================================================
 
-    "name": "Karanvir",
-
-    "roll_no": "1024060178",
-
-    "branch": "ECE",
-
-    "age": 20,
-
-    "city": "Jalandhar"
-
+sample_dict = {
+    "name": "Kelly",
+    "age": 25,
+    "salary": 8000,
+    "city": "New york"
 }
+print("\nGiven dictionary:", sample_dict)
 
-merged = {**my_dict, **friend_dict}
+# Rename key 'city' to 'location'
+sample_dict["location"] = sample_dict.pop("city")
 
-print("\nMerged Dictionary:")
-
-print(merged)
-
-# Values from the second dictionary overwrite common keys.
-
-string_dict = {k: v for k, v in my_dict.items() if isinstance(v, str)}
-
-print("Only String Values:")
-
-print(string_dict)
+print("Expected output dictionary:")
+print(sample_dict)
